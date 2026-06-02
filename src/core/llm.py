@@ -48,6 +48,14 @@ def build_chat_model(
             base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
             temperature=temperature,
         )
+    if provider == "openrouter":
+        from langchain_openrouter import ChatOpenRouter
+
+        return ChatOpenRouter(
+            model=model_name or os.getenv("OPENROUTER_MODEL", "openrouter/bert-nebulon-alpha"),
+            temperature=temperature,
+            openrouter_api_key=os.getenv("OPENROUTER_API_KEY"),
+        )    
     raise ValueError("This lab supports only the `google` and `ollama` providers.")
 
 
